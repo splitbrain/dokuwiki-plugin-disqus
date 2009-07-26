@@ -23,7 +23,7 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
         return array(
             'author' => 'Andreas Gohr',
             'email'  => 'andi@splitbrain.org',
-            'date'   => '2009-01-07',
+            'date'   => '2009-07-26',
             'name'   => 'Disqus Plugin',
             'desc'   => 'Embed Disqus discussion threads',
             'url'    => 'http://wiki.splitbrain.org/plugin:disqus',
@@ -66,27 +66,33 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
      * Create output
      */
     function render($mode, &$R, $data) {
+        if($mode != 'xhtml') return false;
+        $R->doc .= $this->_disqus();
+        return true;
+    }
+
+    function _disqus(){
         global $ID;
         global $INFO;
 
-        if($mode != 'xhtml') return false;
-
-        $R->doc .= '<script charset="utf-8" type="text/javascript">
+        $doc = '';
+        $doc .= '<script charset="utf-8" type="text/javascript">
                     <!--//--><![CDATA[//><!--'."\n";
         if($this->getConf('devel'))
-            $R->doc .= 'var disqus_developer = '.$this->getConf('devel').";\n";
-        $R->doc .= "var disqus_url     = '".wl($ID,'',true)."';\n";
-        $R->doc .= "var disqus_title   = '".addslashes($INFO['meta']['title'])."';\n";
-        $R->doc .= "var disqus_message = '".addslashes($INFO['meta']['abstract'])."';\n";
-        $R->doc .= 'var disqus_container_id = \'disqus__thread\';
+            $doc .= 'var disqus_developer = '.$this->getConf('devel').";\n";
+        $doc .= "var disqus_url     = '".wl($ID,'',true)."';\n";
+        $doc .= "var disqus_title   = '".addslashes($INFO['meta']['title'])."';\n";
+        $doc .= "var disqus_message = '".addslashes($INFO['meta']['abstract'])."';\n";
+        $doc .= 'var disqus_container_id = \'disqus__thread\';
                     //--><!]]>
                     </script>';
-        $R->doc .= '<div id="disqus__thread"></div>';
-        $R->doc .= '<script type="text/javascript" src="http://disqus.com/forums/'.$this->getConf('shortname').'/embed.js"></script>';
-        $R->doc .= '<noscript><a href="http://'.$this->getConf('shortname').'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
+        $doc .= '<div id="disqus__thread"></div>';
+        $doc .= '<script type="text/javascript" src="http://disqus.com/forums/'.$this->getConf('shortname').'/embed.js"></script>';
+        $doc .= '<noscript><a href="http://'.$this->getConf('shortname').'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
 
-        return true;
+        return $doc;
     }
+
 }
 
 //Setup VIM: ex: et ts=4 enc=utf-8 :
