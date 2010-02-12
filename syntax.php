@@ -17,20 +17,6 @@ require_once(DOKU_PLUGIN.'syntax.php');
 class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
 
     /**
-     * return some info
-     */
-    function getInfo(){
-        return array(
-            'author' => 'Andreas Gohr',
-            'email'  => 'andi@splitbrain.org',
-            'date'   => '2009-07-26',
-            'name'   => 'Disqus Plugin',
-            'desc'   => 'Embed Disqus discussion threads',
-            'url'    => 'http://wiki.splitbrain.org/plugin:disqus',
-        );
-    }
-
-    /**
      * What kind of syntax are we?
      */
     function getType(){
