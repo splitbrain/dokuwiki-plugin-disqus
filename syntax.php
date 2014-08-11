@@ -38,14 +38,19 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
      * Connect pattern to lexer
      */
     function connectTo($mode) {
-      $this->Lexer->addSpecialPattern('~~DISQUS~~',$mode,'plugin_disqus');
+      $this->Lexer->addSpecialPattern('~~DISQUS\b.*?~~',$mode,'plugin_disqus');
     }
 
     /**
      * Handle the match
      */
     function handle($match, $state, $pos, &$handler){
-        return array();
+
+    	$match = substr($match, 8, -2);         //strip ~~DISQUS from start and ~~ from end
+        $shortname = strtolower(trim($match));  //strip spaces
+
+        if (!$shortname) $shortname = $this->getConf('shortname');
+        return $shortname;
     }
 
     /**
@@ -53,11 +58,11 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
      */
     function render($mode, &$R, $data) {
         if($mode != 'xhtml') return false;
-        $R->doc .= $this->_disqus();
+        $R->doc .= $this->_disqus($data);
         return true;
     }
 
-    function _disqus(){
+    function _disqus($shortname){
         global $ID;
         global $INFO;
 
@@ -73,8 +78,8 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
                     //--><!]]>
                     </script>';
         $doc .= '<div id="disqus__thread"></div>';
-        $doc .= '<script type="text/javascript" src="http://disqus.com/forums/'.$this->getConf('shortname').'/embed.js"></script>';
-        $doc .= '<noscript><a href="http://'.$this->getConf('shortname').'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
+        $doc .= '<script type="text/javascript" src="https://disqus.com/forums/'.$shortname.'/embed.js"></script>';
+        $doc .= '<noscript><a href="https://'.$shortname.'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
 
         return $doc;
     }
