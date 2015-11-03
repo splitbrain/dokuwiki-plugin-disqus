@@ -73,8 +73,8 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
                     //--><!]]>
                     </script>';
         $doc .= '<div id="disqus__thread"></div>';
-        $doc .= '<script type="text/javascript" src="http://disqus.com/forums/'.$this->getConf('shortname').'/embed.js"></script>';
-        $doc .= '<noscript><a href="http://'.$this->getConf('shortname').'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
+        $doc .= '<script type="text/javascript" src="//disqus.com/forums/'.$this->getConf('shortname').'/embed.js"></script>';
+        $doc .= '<noscript><a href="//'.$this->getConf('shortname').'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
 
         return $doc;
     }
