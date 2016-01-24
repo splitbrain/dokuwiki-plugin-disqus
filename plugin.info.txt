@@ -1,7 +1,7 @@
 base    disqus
 author  Andreas Gohr
 email   andi@splitbrain.org
-date    2015-11-03
+date    2016-01-24
 name    Disqus Plugin
 desc    Embed Disqus discussion threads
 url     http://www.dokuwiki.org/plugin:disqus
