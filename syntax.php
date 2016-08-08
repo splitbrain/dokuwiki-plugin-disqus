@@ -50,7 +50,7 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
         $shortname = strtolower(trim($match));  //strip spaces
 
         if (!$shortname) $shortname = $this->getConf('shortname');
-        return $shortname;
+        return hsc($shortname);
     }
 
     /**
