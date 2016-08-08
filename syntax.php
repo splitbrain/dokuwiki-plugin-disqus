@@ -50,7 +50,7 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
         $shortname = strtolower(trim($match));  //strip spaces
 
         if (!$shortname) $shortname = $this->getConf('shortname');
-        return hsc($shortname);
+        return $shortname;
     }
 
     /**
@@ -78,8 +78,8 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
                     //--><!]]>
                     </script>';
         $doc .= '<div id="disqus__thread"></div>';
-        $doc .= '<script type="text/javascript" src="//disqus.com/forums/'.$shortname.'/embed.js"></script>';
-        $doc .= '<noscript><a href="//'.$shortname.'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
+        $doc .= '<script type="text/javascript" src="//disqus.com/forums/'.hsc($shortname).'/embed.js"></script>';
+        $doc .= '<noscript><a href="//'.hsc($shortname).'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
 
         return $doc;
     }
