@@ -62,9 +62,11 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
         return true;
     }
 
-    function _disqus($shortname){
+    function _disqus($shortname = ''){
         global $ID;
         global $INFO;
+
+        if (!$shortname === '') $shortname = $this->getConf('shortname');
 
         $doc = '';
         $doc .= '<script charset="utf-8" type="text/javascript">
