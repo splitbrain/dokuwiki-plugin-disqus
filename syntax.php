@@ -69,7 +69,7 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
         if (!$shortname === '') $shortname = $this->getConf('shortname');
 
         $doc = '';
-        $doc .= '<script charset="utf-8" type="text/javascript">
+        $doc .= '<script type="text/javascript">
                     <!--//--><![CDATA[//><!--'."\n";
         if($this->getConf('devel'))
             $doc .= 'var disqus_developer = '.$this->getConf('devel').";\n";
