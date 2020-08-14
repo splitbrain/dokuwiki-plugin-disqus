@@ -80,7 +80,11 @@ class syntax_plugin_disqus extends DokuWiki_Syntax_Plugin {
                     //--><!]]>
                     </script>';
         $doc .= '<div id="disqus__thread"></div>';
-        $doc .= '<script type="text/javascript" src="//disqus.com/forums/'.hsc($shortname).'/embed.js"></script>';
+        if($this->getConf('button')) {
+            $doc .= '<div id="disqusActivate">';
+            $doc .= '<button id="disqusActivateButton" data-shortname="'.hsc($shortname).'">'.$this->getLang('buttontext').'</button>';
+	    $doc .= '</div>';
+        } else $doc .= '<script type="text/javascript" src="//disqus.com/forums/'.hsc($shortname).'/embed.js"></script>';
         $doc .= '<noscript><a href="//'.hsc($shortname).'.disqus.com/?url=ref">View the discussion thread.</a></noscript>';
 
         return $doc;
